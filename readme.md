@@ -1,10 +1,10 @@
 # VTS Tasks Archive
 This repository contains the archive of the task projects that were originally included in the VTS repository. The tasks are the following:
-Vts.ImportSpectralData.Desktop
-Vts.MonteCarlo.GenerateReferenceData
-Vts.ReportForwardSolvers.Desktop
-Vts.ReportInverseSolver.Desktop
-Vts.WriteNurbsValues.Desktop
+* Vts.ImportSpectralData.Desktop
+* Vts.MonteCarlo.GenerateReferenceData
+* Vts.ReportForwardSolvers.Desktop
+* Vts.ReportInverseSolver.Desktop
+* Vts.WriteNurbsValues.Desktop
 
 ## Acknowledgement
 Use the following acknowledgement in publications or applications that make use of this open source software or underlying technology and research:
