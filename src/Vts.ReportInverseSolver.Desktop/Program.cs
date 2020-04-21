@@ -12,6 +12,7 @@ namespace Vts.ReportInverseSolver.Desktop
 {
     class Program
     {
+        // note: this program takes about 4.5 hours to complete with current fixes
         static void Main(string[] args)
         {
             //resources path definition, common for all the reports:
@@ -637,6 +638,11 @@ namespace Vts.ReportInverseSolver.Desktop
                                 //read binary files
                                 var timeRange = (double[])FileIO.ReadArrayFromBinaryInResources<double>
                                                       ("Resources/" + spaceDomainFolder + "/" + timeDomainFolder + "/" + problemFolder + "/" + rhoFolder + "/" + filename + "Range", projectName, 2);
+                                // CKH 4/20/20 quickfix to avoid exception, somehow binary read of timeRange have timeRange[1]=0
+                                if ((timeRange[1] - timeRange[0] < 0) || (Math.Abs(timeRange[1] - timeRange[0]) > 2e9))
+                                {
+                                    break;
+                                }
                                 int numberOfPoints = Convert.ToInt32((timeRange[1] - timeRange[0]) / dt) + 1;
                                 var T = new DoubleRange(timeRange[0], timeRange[1], numberOfPoints).AsEnumerable().ToArray();
                                 var R = (double[])FileIO.ReadArrayFromBinaryInResources<double>
@@ -742,7 +748,8 @@ namespace Vts.ReportInverseSolver.Desktop
         private static double[] FilterArray(double[] arrayIn, int ratioPointToUse)
         {
             int numberOfPoints = arrayIn.Count() / ratioPointToUse;
-            if ((ratioPointToUse != 2 && ratioPointToUse != 1)||(arrayIn.Count() == 51))
+            //if ((ratioPointToUse != 2 && ratioPointToUse != 1)||(arrayIn.Count() == 51))
+            if ((ratioPointToUse != 1) || (arrayIn.Count() == 51)) // CKH fix 4/20/20 to get to run
             {
                 numberOfPoints += 1;
             }
